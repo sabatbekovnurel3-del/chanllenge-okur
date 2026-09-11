@@ -1,0 +1,29 @@
+import random
+
+def guess_number():
+    number = random.randint(1, 100)
+    attempts = 0
+
+    print("Я загадал число от 1 до 100. Попробуй угадать!")
+
+    while True:
+        guess = input("Твоё число: ")
+
+        if guess == 'q':
+            print(f"Ты сдался. Число было: {number}")
+            break
+
+        guess = int(guess)
+        attempts += 1
+
+        if guess < number:
+            print("Больше!")
+        elif guess > number:
+            print("Меньше!")
+        else:
+            print(f"Угадал! Число было {number}. Попыток: {attempts}")
+            break
+
+
+if __name__ == "__main__":
+    guess_number()
