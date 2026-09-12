@@ -1,0 +1,82 @@
+import time
+def stopwatch():
+    """
+    Секундомер — измеряет, сколько времени прошло между
+    двумя моментами: началом и концом.
+    """
+    print("\n--- СЕКУНДОМЕР ---")
+    input("Нажми Enter, чтобы начать отсчёт...")
+
+
+    start_time = time.time()
+    print("Секундомер запущен! Нажми Enter, чтобы остановить.")
+
+
+    input()
+
+
+    end_time = time.time()
+
+
+    elapsed = end_time - start_time
+
+
+    minutes = int(elapsed // 60) 
+    seconds = elapsed % 60         
+
+    print(f"\nРезультат: {minutes} мин {seconds:.2f} сек")
+    print(f"(Всего секунд: {elapsed:.2f})")
+def timer():
+    """
+    Таймер — обратный отсчёт от заданного количества секунд до нуля.
+    """
+    print("\n--- ТАЙМЕР ---")
+
+
+    total_seconds = int(input("Введите количество секунд: "))
+    remaining = total_seconds
+
+    print("Отсчёт начался!\n")
+
+    while remaining > 0:
+
+        minutes = remaining // 60
+        secs = remaining % 60
+        print(f"\rОсталось: {minutes:02d}:{secs:02d}", end="")
+        time.sleep(1)
+        remaining -= 1
+
+    print("\r⏰ Время вышло!               ")
+def show_menu():
+    """
+    Выводит меню на экран и возвращает выбор пользователя.
+    """
+    print("\n" + "=" * 30)
+    print("   СЕКУНДОМЕР И ТАЙМЕР")
+    print("=" * 30)
+    print("1 — Секундомер")
+    print("2 — Таймер")
+    print("3 — Выход")
+
+    choice = input("Выберите пункт (1-3): ")
+    return choice
+def main():
+    """
+    Главная функция программы — показывает меню в цикле
+    и запускает нужную функцию в зависимости от выбора.
+    """
+    while True:
+        choice = show_menu()
+
+        if choice == "1":
+            stopwatch()
+        elif choice == "2":
+            timer()
+        elif choice == "3":
+            print("До свидания!")
+            break
+        else:
+            print("Некорректный выбор. Попробуйте снова.")
+if __name__ == "__main__":
+    main()
+
