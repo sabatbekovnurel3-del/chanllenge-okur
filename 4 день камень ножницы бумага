@@ -1,0 +1,91 @@
+import random
+options = ["камень", "ножницы", "бумага"]
+def get_computer_choice():
+    """Компьютер выбирает случайный вариант из списка."""
+    return random.choice(options)
+def get_player_choice():
+    """Спрашиваем выбор игрока и проверяем, что он корректный."""
+    while True:
+        choice = input("Выбери: камень / ножницы / бумага (q — выход): ").lower()
+
+        if choice == 'q':
+            return None
+
+        if choice in options:
+            return choice
+
+        print("Некорректный ввод! Введи камень, ножницы или бумага.")
+def determine_winner(player, computer):
+    """
+    Определяем победителя по правилам игры:
+    камень бьёт ножницы, ножницы бьют бумагу, бумага бьёт камень.
+    """
+    if player == computer:
+        return "draw"
+    beats = {
+        "камень": "ножницы",
+        "ножницы": "бумага",
+        "бумага": "камень"}
+
+    if beats[player] == computer:
+        return "player"
+    else:
+        return "computer"
+def play_round():
+    """Играем один раунд и возвращаем результат."""
+    player_choice = get_player_choice()
+
+    if player_choice is None:
+        return None
+
+    computer_choice = get_computer_choice()
+
+    print(f"\nТы выбрал: {player_choice}")
+    print(f"Компьютер выбрал: {computer_choice}")
+
+    result = determine_winner(player_choice, computer_choice)
+
+    if result == "draw":
+        print("Ничья!\n")
+    elif result == "player":
+        print("Ты победил в этом раунде!\n")
+    else:
+        print("Компьютер победил в этом раунде!\n")
+
+    return result
+def main():
+    print("=" * 40)
+    print("  КАМЕНЬ, НОЖНИЦЫ, БУМАГА")
+    print("=" * 40)
+    score = [0, 0]
+    rounds_played = 0
+
+    while True:
+        result = play_round()
+
+        if result is None:
+            break
+
+        rounds_played += 1
+
+        if result == "player":
+            score[0] += 1
+        elif result == "computer":
+            score[1] += 1
+
+        print(f"Счёт — Ты: {score[0]} | Компьютер: {score[1]}")
+        print("-" * 40)
+    print("\n=== ИГРА ОКОНЧЕНА ===")
+    print(f"Сыграно раундов: {rounds_played}")
+    print(f"Твои победы: {score[0]}")
+    print(f"Победы компьютера: {score[1]}")
+
+    if score[0] > score[1]:
+        print("Итог: ТЫ ПОБЕДИЛ В ИГРЕ!")
+    elif score[0] < score[1]:
+        print("Итог: КОМПЬЮТЕР ПОБЕДИЛ В ИГРЕ!")
+    else:
+        print("Итог: НИЧЬЯ!")
+if __name__ == "__main__":
+    main()
+
