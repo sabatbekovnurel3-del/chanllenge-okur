@@ -1,0 +1,54 @@
+import string
+def analyze_text(text):
+    """Считает статистику по введённому тексту."""
+    letters = sum(1 for char in text if char.isalpha())
+    digits = sum(1 for char in text if char.isdigit())
+    spaces = sum(1 for char in text if char == " ")
+    punctuation = sum(1 for char in text if char in string.punctuation)
+    words = text.split()
+    word_count = len(words)
+    if words:
+        cleaned_words = [word.strip(string.punctuation) for word in words]
+        longest_word = max(cleaned_words, key=len)
+    else:
+        longest_word = "—"
+    sentence_endings = text.count(".") + text.count("!") + text.count("?")
+return {
+        "total_chars": len(text),
+        "letters": letters,
+        "digits": digits,
+        "spaces": spaces,
+        "punctuation": punctuation,
+        "word_count": word_count,
+        "longest_word": longest_word,
+        "sentences": sentence_endings}
+def print_stats(stats):
+    """Красиво выводит статистику на экран."""
+    print("\n" + "=" * 40)
+    print("   СТАТИСТИКА ТЕКСТА")
+    print("=" * 40)
+    print(f"Всего символов:        {stats['total_chars']}")
+    print(f"Букв:                  {stats['letters']}")
+    print(f"Цифр:                  {stats['digits']}")
+    print(f"Пробелов:              {stats['spaces']}")
+    print(f"Знаков препинания:     {stats['punctuation']}")
+    print(f"Слов:                  {stats['word_count']}")
+    print(f"Предложений (прибл.):  {stats['sentences']}")
+    print(f"Самое длинное слово:   «{stats['longest_word']}» ({len(stats['longest_word'])} букв)")
+    print("=" * 40)
+def main():
+    print("СЛОВЕСНЫЙ КАЛЬКУЛЯТОР")
+    print("Введи текст для анализа (для выхода — 'q')\n")
+    while True:
+        text = input("Текст: ")
+        if text.lower() == 'q':
+            print("До свидания!")
+            break
+        if text.strip() == "":
+            print("Введи какой-нибудь текст!\n")
+            continue
+        stats = analyze_text(text)
+        print_stats(stats)
+        print()
+if __name__ == "__main__":
+    main()
