@@ -1,0 +1,47 @@
+print("Конвертер систем счисления")
+print("1 - перевести десятичное число в bin/oct/hex")
+print("2 - перевести число из другой системы обратно в десятичную")
+print("3 - перевести в свою систему счисления (например base 5 или base 20)")
+print("q - выход")
+while True:
+    choice = input("\nЧто делаем? (1/2/3/q): ")
+
+    if choice == "q":
+        print("Всё, пока")
+        break
+    if choice == "1":
+        num = input("Введи число: ")
+        if not num.isdigit():
+            print("это не число вообще-то")
+            continue
+        num = int(num)
+        print("Двоичное:", bin(num)[2:])
+        print("Восьмеричное:", oct(num)[2:])
+        print("Шестнадцатеричное:", hex(num)[2:].upper())
+    elif choice == "2":
+        base = input("Из какой системы переводим? (2, 8, 16 и тд): ")
+        base = int(base)
+        value = input(f"Введи число в системе с основанием {base}: ")
+        try:
+            result = int(value, base)
+            print(f"В десятичной системе это: {result}")
+        except:
+            print("Что то пошло не так, наверное неправильные цифры для этой системы")
+    elif choice == "3":
+        num = int(input("Введи десятичное число: "))
+        base = int(input("В какую систему переводим? (от 2 до 36): "))
+        if num == 0:
+            print("Результат: 0")
+            continue
+        digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        result = ""
+        n = num  
+        while n > 0:
+            ost = n % base  
+            result = digits[ost] + result
+            n = n // base     
+
+        print(f"{num} в системе с основанием {base} это: {result}")
+    else:
+        print("такого варианта нет, введи 1, 2, 3 или q")
+
